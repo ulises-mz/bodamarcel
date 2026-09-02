@@ -83,7 +83,7 @@ body {
 
 @media (max-width: 900px) {
   .texture-stack::before {
-    width: 108vw;
+    width: 100%;
     background: linear-gradient(
       to right,
       rgba(247, 244, 238, 0) 0%,
@@ -2544,7 +2544,7 @@ main {
   position: fixed;
   left: 50%;
   top: 50%;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   height: 100svh;
   transform: translate(-50%, -50%) scale(1);
@@ -3452,6 +3452,83 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
   .ticket .ticket__inner,
   .ticket .ticket__hint {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   NUEVO — Cero scroll horizontal y cero rebote lateral (iOS)
+   `clip` corta de verdad sin crear un contenedor de scroll
+   (hidden no siempre lo hace en Safari) y overscroll-behavior-x
+   mata el efecto de "estirar" la pagina con el dedo.
+   ============================================================ */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+  overscroll-behavior-x: none;
+}
+
+/* ============================================================
+   NUEVO — Rendimiento en movil
+   El costo real en un telefono no son las animaciones sino el
+   PINTADO: sombras difuminadas sobre decenas de capas, filtros
+   de fondo y texto con halos. Aca se aligera todo eso sin
+   cambiar la estetica de forma perceptible.
+   ============================================================ */
+@media (max-width: 900px) {
+  /* drop-shadow sobre cada flor era lo mas caro de la pagina */
+  .floral-flow__img {
+    filter: sepia(0.12) hue-rotate(-6deg) saturate(0.78) brightness(1.06);
+  }
+
+  /* El campo de luz se queda, pero deja de animarse: son dos
+     capas del tamano de la pantalla y su repintado no compensa */
+  body::before,
+  body::after {
+    animation: none;
+  }
+
+  /* backdrop-filter obliga a recomponer en cada frame de scroll */
+  .quick-nav {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(249, 245, 236, 0.96);
+  }
+
+  /* El navegador se salta el pintado de lo que no esta en pantalla */
+  .section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1100px;
+  }
+
+  /* Sombras mas baratas de rasterizar */
+  .hourglass { filter: none; }
+
+  .ticket__face {
+    box-shadow: 0 10px 22px rgba(74, 58, 41, 0.13);
+  }
+
+  .aporte__panel,
+  .dresscode__panel {
+    box-shadow: 0 16px 34px rgba(74, 60, 40, 0.09);
+  }
+
+  /* Un solo halo de texto en vez de tres capas */
+  .hero h1,
+  .hero p,
+  .section h2,
+  .section h3,
+  .section p,
+  .section legend,
+  .section label,
+  .footer p {
+    text-shadow: 0 0 10px rgba(247, 244, 236, 0.96);
+  }
+
+  /* Ken Burns anima una imagen grande sin que se note: fuera */
+  .hero__portrait img {
     animation: none;
   }
 }

@@ -200,12 +200,12 @@ function createFloralPlanItem(index, spacing, viewportHeight) {
 }
 
 function getFloralSpacing(viewportHeight) {
-  return Math.max(140, viewportHeight * (useLightScrollEffects ? 0.34 : 0.28));
+  return Math.max(140, viewportHeight * (useLightScrollEffects ? 0.58 : 0.28));
 }
 
 function getFloralCountForHeight(canvasHeight, spacing) {
   return useLightScrollEffects
-    ? Math.max(24, Math.ceil(canvasHeight / spacing) + 7)
+    ? Math.max(12, Math.ceil(canvasHeight / spacing) + 3)
     : Math.max(40, Math.ceil(canvasHeight / spacing) + 14);
 }
 
@@ -1505,31 +1505,54 @@ if (videoIntro && videoFrame && introVideo && heroPortrait) {
     return smooth(clamp01(1 - (t - 0.72) / 0.23));
   }
 
+  // Cache de lo ultimo escrito: evitar tocar el DOM si el valor no cambio.
+  let ultPush = -1;
+  let ultVig = -1;
+  let ultWash = -1;
+  let ultHint = -1;
+  let ultVol = -1;
+  let necesitaFrame = true;
+
   function frameStep() {
     const t = clamp01(window.scrollY / trackLength);
-    // Persecucion suave: el valor mostrado sigue al scroll sin saltos.
-    shownT += (t - shownT) * 0.18;
-    if (Math.abs(t - shownT) < 0.0004) shownT = t;
+    const delta = t - shownT;
+    shownT += delta * 0.18;
+    const asentado = Math.abs(t - shownT) < 0.0005;
+    if (asentado) shownT = t;
 
     // Acto 1: push-in lento (dolly cinematografico, sutil).
-    const push = 1 + 0.05 * smooth(clamp01(shownT / 0.6));
-    videoFrame.style.transform = 'translate(-50%, -50%) scale(' + push.toFixed(4) + ')';
+    if (!docked) {
+      const push = Number((1 + 0.05 * smooth(clamp01(shownT / 0.6))).toFixed(4));
+      if (push !== ultPush) {
+        videoFrame.style.transform = 'translate(-50%, -50%) scale(' + push + ')';
+        ultPush = push;
+      }
+    }
 
     if (videoVignette) {
-      videoVignette.style.opacity = (0.85 * smooth(clamp01(shownT / 0.5))).toFixed(3);
+      const vig = Number((0.85 * smooth(clamp01(shownT / 0.5))).toFixed(3));
+      if (vig !== ultVig) { videoVignette.style.opacity = String(vig); ultVig = vig; }
     }
 
     // Acto 2: marea de luz + sonido del trailer fundiendose.
-    const wash = washOpacity(shownT);
-    if (videoWash) videoWash.style.opacity = wash.toFixed(3);
-    try {
-      introVideo.volume = clamp01(1 - clamp01((shownT - 0.2) / 0.4));
-    } catch (error) { /* volumen de solo lectura (iOS) */ }
+    const wash = Number(washOpacity(shownT).toFixed(3));
+    if (videoWash && wash !== ultWash) { videoWash.style.opacity = String(wash); }
 
-    if (videoHint) videoHint.style.opacity = String(Math.max(0, 1 - shownT * 3));
-    if (ambientVideo && !docked) {
+    const vol = Number(clamp01(1 - clamp01((shownT - 0.2) / 0.4)).toFixed(2));
+    if (vol !== ultVol) {
+      try { introVideo.volume = vol; } catch (error) { /* solo lectura en iOS */ }
+      ultVol = vol;
+    }
+
+    if (videoHint) {
+      const h = Number(Math.max(0, 1 - shownT * 3).toFixed(3));
+      if (h !== ultHint) { videoHint.style.opacity = String(h); ultHint = h; }
+    }
+    if (ambientVideo && !docked && wash !== ultWash) {
       ambientVideo.style.opacity = String(Math.max(0, 1 - wash * 1.2));
     }
+    ultWash = wash;
+
     if (videoSoundButton && !videoSoundButton.hidden) {
       videoSoundButton.style.opacity = String(Math.max(0, 1 - shownT * 2.6));
       videoSoundButton.style.pointerEvents = shownT > 0.3 ? 'none' : 'auto';
@@ -1542,6 +1565,12 @@ if (videoIntro && videoFrame && introVideo && heroPortrait) {
       undock();
     }
 
+    // Ya no hay nada que animar: el loop DUERME hasta el proximo scroll.
+    if (asentado && !necesitaFrame) {
+      loopRunning = false;
+      return;
+    }
+    necesitaFrame = false;
     rafId = requestAnimationFrame(frameStep);
   }
 
@@ -1550,6 +1579,13 @@ if (videoIntro && videoFrame && introVideo && heroPortrait) {
     loopRunning = true;
     rafId = requestAnimationFrame(frameStep);
   }
+
+  function despertarLoop() {
+    necesitaFrame = true;
+    startLoop();
+  }
+
+  window.addEventListener('scroll', despertarLoop, { passive: true });
 
   // Auto-scroll cinematografico con easing propio.
   function cinematicScrollTo(top, duration) {
@@ -1571,24 +1607,31 @@ if (videoIntro && videoFrame && introVideo && heroPortrait) {
   // click de "Ver Invitacion" (gesto del usuario, mismo origen).
   window.__startTrailerSound = function startTrailerSound() {
     trailerStarted = true;
-    try {
-      introVideo.currentTime = 0;
-      introVideo.muted = false;
-      introVideo.volume = 1;
-      const playPromise = introVideo.play();
-      if (playPromise && typeof playPromise.then === 'function') {
-        playPromise
-          .then(() => {
-            soundUnlocked = true;
-          })
-          .catch(() => {
-            introVideo.muted = true;
-            safePlay(introVideo);
-            if (videoSoundButton) videoSoundButton.hidden = false;
-          });
-      }
-      if (videoSoundButton) videoSoundButton.hidden = true;
-    } catch (error) { /* sin video: nada que arrancar */ }
+
+    // iOS lanza si aun no hay metadata: el reinicio nunca debe abortar el play.
+    try { introVideo.currentTime = 0; } catch (error) { /* sin metadata todavia */ }
+
+    // Intento con sonido; si el navegador lo bloquea, el video se reproduce
+    // igual en silencio y aparece el boton para activarlo con un toque.
+    introVideo.muted = false;
+    const conSonido = introVideo.play();
+
+    if (conSonido && typeof conSonido.then === 'function') {
+      conSonido
+        .then(() => {
+          soundUnlocked = true;
+          if (videoSoundButton) videoSoundButton.hidden = true;
+        })
+        .catch(() => {
+          introVideo.muted = true;
+          safePlay(introVideo);
+          if (videoSoundButton) videoSoundButton.hidden = false;
+        });
+    } else {
+      // Navegador sin promesa en play(): asegurar reproduccion silenciosa.
+      introVideo.muted = true;
+      safePlay(introVideo);
+    }
 
     if (ambientVideo && window.matchMedia('(min-width: 700px)').matches) {
       try { ambientVideo.currentTime = 0; } catch (error) { /* sin metadata */ }
