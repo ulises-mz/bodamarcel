@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#efe9dc" />
+  <title>Marcel & Inés — Invitación</title>
+
+  <meta name="description" content="Te invitamos a celebrar nuestra boda. Viernes 27 de noviembre de 2026 · Acto civil 5:00 PM · Cena 7:00 PM · Vino Mundo, Ciudad Colón. Confirma tu asistencia aquí." />
+  <link rel="canonical" href="https://myi.siriusx.net/invitation.html" />
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+  <!-- Vista previa al compartir (WhatsApp / Open Graph) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Boda Marcel & Inés" />
+  <meta property="og:locale" content="es_CR" />
+  <meta property="og:title" content="Marcel & Inés · ¡Nos casamos! 💍" />
+  <meta property="og:description" content="Viernes 27 de noviembre de 2026 · Acto civil 5:00 PM · Cena 7:00 PM · Vino Mundo, Ciudad Colón. Toca para abrir tu invitación y confirmar tu asistencia." />
+  <meta property="og:url" content="https://myi.siriusx.net/invitation.html" />
+  <meta property="og:image" content="https://myi.siriusx.net/og-image.jpg?v=1" />
+  <meta property="og:image:secure_url" content="https://myi.siriusx.net/og-image.jpg?v=1" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Invitación a la boda de Marcel e Inés — Viernes 27 de noviembre de 2026" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Marcel & Inés · ¡Nos casamos! 💍" />
+  <meta name="twitter:description" content="Viernes 27 de noviembre de 2026 · Acto civil 5:00 PM · Cena 7:00 PM. Toca para abrir tu invitación y confirmar tu asistencia." />
+  <meta name="twitter:image" content="https://myi.siriusx.net/og-image.jpg?v=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Great+Vibes&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="novios-6.jpg" fetchpriority="high" />
+  <link rel="preload" as="image" href="textura-2.webp" />
+  <link rel="stylesheet" href="invite.css?v=20260902h" />
+</head>
+<body>
+  <div class="progress-track" aria-hidden="true">
+    <div class="progress-fill" id="scroll-progress"></div>
+  </div>
+
+  <button class="to-top" id="to-top" aria-label="Volver arriba">↑</button>
+
+  <div class="texture-stack" id="texture-stack" aria-hidden="true"></div>
+  <div class="floral-flow" id="floral-flow" aria-hidden="true"></div>
+  <div class="petal-fall" id="petal-fall" aria-hidden="true"></div>
+
+  <!-- ░░ SAVE THE DATE — el trailer vuela y se acopla al arco del hero ░░ -->
+  <section class="video-intro" id="video-intro" aria-label="Save the date">
+    <video id="ambient-video" class="video-intro__ambient" src="savethedate.mp4" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+    <div class="video-intro__frame" id="video-frame">
+      <video id="intro-video" class="video-intro__video" src="savethedate.mp4" poster="savethedate-poster.jpg" muted playsinline preload="auto"></video>
+      <button type="button" class="video-intro__sound" id="video-sound" aria-label="Activar sonido" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 9.5 L7.5 9.5 L12 5.5 L12 18.5 L7.5 14.5 L4 14.5 Z"></path>
+          <path d="M15.5 10 L20 14.5 M20 10 L15.5 14.5"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="video-intro__vignette" id="video-vignette" aria-hidden="true"></div>
+    <div class="video-intro__wash" id="video-wash" aria-hidden="true"></div>
+    <div class="video-intro__hint" id="video-hint" aria-hidden="true">
+      <span>Desliza</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9 L12 15 L18 9"></path></svg>
+    </div>
+  </section>
+
+  <header class="hero" id="inicio">
+    <p class="hero__kicker hero-enter" style="--enter: 1;">Con la bendicion de Dios y el amor que nos une</p>
+    <h1 class="hero__names hero-enter" style="--enter: 2;">Marcel <span>&</span> Ines</h1>
+
+    <div class="hero__portrait hero-enter" style="--enter: 3;">
+      <img src="novios-6.jpg" alt="Marcel e Ines" fetchpriority="high" decoding="async" />
+    </div>
+
+    <p class="hero__line hero-enter" style="--enter: 4;">Tenemos el honor de invitarte a celebrar el dia en que uniremos nuestras vidas en matrimonio.</p>
+
+    <div class="hero__date-wrap hero-enter" style="--enter: 5;">
+      <p class="hero__date">27 • Noviembre • 2026</p>
+      <p class="hero__time">Acto civil 5:00 PM · Cena 7:00 PM · Vino Mundo, Ciudad Colon</p>
+    </div>
+
+    <div class="hero__actions hero-enter" style="--enter: 6;">
+      <a class="hero__btn hero__btn--solid" href="#agenda">Como llegar</a>
+      <a class="hero__btn" href="#rsvp">Confirmar asistencia</a>
+    </div>
+
+    <div class="hero__countdown hero-enter" style="--enter: 7;" aria-label="Cuenta regresiva principal">
+      <article>
+        <p id="hero-days">0</p>
+        <span>Dias</span>
+      </article>
+      <article>
+        <p id="hero-hours">00</p>
+        <span>Horas</span>
+      </article>
+      <article>
+        <p id="hero-minutes">00</p>
+        <span>Min</span>
+      </article>
+      <article>
+        <p id="hero-seconds">00</p>
+        <span>Seg</span>
+      </article>
+    </div>
+
+    <div class="scroll-hint hero-enter" style="--enter: 8;" aria-hidden="true">
+      <span>Desplazate</span>
+      <div class="scroll-hint__arrow"></div>
+    </div>
+  </header>
+
+  <nav class="quick-nav" aria-label="Navegacion rapida">
+    <a href="#ruta" class="quick-nav__link">Historia</a>
+    <a href="#agenda" class="quick-nav__link">Agenda</a>
+    <a href="#dresscode" class="quick-nav__link">Vestimenta</a>
+    <a href="#aporte" class="quick-nav__link">Cena y Aporte</a>
+    <a href="#gifts" class="quick-nav__link">Regalos</a>
+    <a href="#rsvp" class="quick-nav__link">RSVP</a>
+  </nav>
+
+  <main>
+    <section class="section reveal route" id="ruta">
+      <h2 class="section__title">Ruta de Nuestra Historia</h2>
+      <svg class="section__doodle" viewBox="0 0 120 84" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M30 44 C 29 32, 38 24, 49 25 C 60 26, 67 35, 66 46 C 65 57, 55 64, 45 62 C 35 60, 31 53, 30 44 Z"></path>
+        <path d="M56 40 C 57 29, 67 22, 77 24 C 87 26, 93 36, 91 46 C 89 56, 79 62, 69 60 C 60 58, 55 50, 56 40 Z"></path>
+        <path d="M49 13 L50 20 M45 16 L54 17"></path>
+      </svg>
+      <p class="section__lead">Mientras haces scroll, se va revelando nuestra ruta de recuerdos de forma inmersiva.</p>
+
+      <div class="route__shell">
+        <div class="route__line" aria-hidden="true">
+          <span id="route-progress"></span>
+        </div>
+
+        <article class="memory-step" data-step>
+          <button type="button" class="memory-step__dot" aria-label="Ir al recuerdo 1"></button>
+          <div class="memory-step__media" data-depth="0.16" data-photo="novios-1.jpg" style="--photo-pos: center 30%;" role="img" aria-label="El inicio de nuestra historia"></div>
+          <div class="memory-step__copy">
+            <p class="memory-step__label">Capitulo 1</p>
+            <h3>Primer Encuentro</h3>
+            <p>El momento donde inicio nuestra historia y descubrimos una conexion especial.</p>
+          </div>
+        </article>
+
+        <article class="memory-step" data-step>
+          <button type="button" class="memory-step__dot" aria-label="Ir al recuerdo 2"></button>
+          <div class="memory-step__media" data-depth="0.12" data-photo="novios-2.jpg" style="--photo-pos: center 45%;" role="img" aria-label="Nuestros momentos juntos"></div>
+          <div class="memory-step__copy">
+            <p class="memory-step__label">Capitulo 2</p>
+            <h3>Nuestros Momentos</h3>
+            <p>Entre risas y conversaciones eternas, fuimos construyendo un amor firme y bonito.</p>
+          </div>
+        </article>
+
+        <article class="memory-step" data-step>
+          <button type="button" class="memory-step__dot" aria-label="Ir al recuerdo 3"></button>
+          <div class="memory-step__media" data-depth="0.18" data-photo="novios-3.jpg" style="--photo-pos: center 55%;" role="img" aria-label="El anillo de compromiso"></div>
+          <div class="memory-step__copy">
+            <p class="memory-step__label">Capitulo 3</p>
+            <h3>El Si de Nuestro Corazon</h3>
+            <p>Elegimos caminar juntos para siempre y empezar un nuevo capitulo de vida.</p>
+          </div>
+        </article>
+
+        <article class="memory-step" data-step>
+          <button type="button" class="memory-step__dot" aria-label="Ir al recuerdo 4"></button>
+          <div class="memory-step__media" data-depth="0.14" data-photo="novios-4.jpg" style="--photo-pos: center 40%;" role="img" aria-label="Preparando nuestro gran dia"></div>
+          <div class="memory-step__copy">
+            <p class="memory-step__label">Capitulo 4</p>
+            <h3>Preparando Nuestro Gran Dia</h3>
+            <p>Cada detalle esta lleno de ilusion para compartir este momento con las personas que amamos.</p>
+          </div>
+        </article>
+
+        <article class="memory-step" data-step>
+          <button type="button" class="memory-step__dot" aria-label="Ir al recuerdo 5"></button>
+          <div class="memory-step__media" data-depth="0.2" data-photo="novios-5.jpg" style="--photo-pos: center 40%;" role="img" aria-label="Nos casamos"></div>
+          <div class="memory-step__copy">
+            <p class="memory-step__label">Capitulo Final</p>
+            <h3>Nos Casamos</h3>
+            <p>Este camino nos trajo hasta aqui, y queremos vivirlo contigo en nuestra boda.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section reveal schedule" id="agenda">
+      <h2 class="section__title">Agenda del Dia</h2>
+      <svg class="section__doodle" viewBox="0 0 120 84" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M60 18 C 76 18, 88 30, 88 45 C 88 60, 76 71, 60 71 C 44 71, 33 60, 33 45 C 33 31, 45 18, 60 18 Z"></path>
+        <path d="M60 45 L60 31 M60 45 L66 54"></path>
+        <path d="M54 14 C 55 10, 65 10, 66 14"></path>
+        <path d="M84 45 L80 45 M60 67 L60 63 M37 45 L41 45"></path>
+      </svg>
+      <p class="section__lead">Viernes 27 de noviembre de 2026 · Todo sucede en un mismo lugar: Vino Mundo, Ciudad Colon.</p>
+
+      <div class="event-grid">
+        <article class="ticket" data-ticket>
+          <div class="ticket__inner">
+            <div class="ticket__face ticket__front">
+              <figure class="ticket__photo">
+                <img src="venue-civil.jpg" alt="Salon de Vino Mundo para el acto civil" loading="lazy" decoding="async" />
+              </figure>
+              <div class="ticket__row">
+                <div class="ticket__body">
+                  <p class="ticket__label">Nuestra boda · Vie 27 Nov 2026</p>
+                  <h3 class="ticket__title">Acto Civil</h3>
+                  <p class="ticket__place">Vino Mundo · Ciudad Colon</p>
+                </div>
+                <div class="ticket__stub" aria-hidden="true">
+                  <span>5:00</span>
+                  <small>PM</small>
+                </div>
+              </div>
+              <p class="ticket__hint">Toca el boleto para ver como llegar</p>
+            </div>
+            <div class="ticket__face ticket__back">
+              <p class="ticket__label">Acto Civil · 5:00 PM</p>
+              <p class="ticket__desc">Acompananos desde el inicio y se testigo de nuestra union.</p>
+              <div class="ticket__actions">
+                <a class="map-link" href="https://waze.com/ul?q=Vino%20Mundo%20Ciudad%20Col%C3%B3n&navigate=yes" target="_blank" rel="noopener noreferrer">Abrir en Waze</a>
+                <a class="map-link map-link--alt" href="https://www.google.com/maps/search/?api=1&query=Vino%20Mundo%2C%20Ciudad%20Col%C3%B3n" target="_blank" rel="noopener noreferrer">Google Maps</a>
+                <button type="button" class="map-copy" data-copy="Vino Mundo, Ciudad Colon — https://waze.com/ul?q=Vino%20Mundo%20Ciudad%20Col%C3%B3n&navigate=yes">Copiar ubicacion</button>
+              </div>
+              <p class="ticket__hint">Toca para voltear de regreso</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="ticket" data-ticket>
+          <div class="ticket__inner">
+            <div class="ticket__face ticket__front">
+              <figure class="ticket__photo">
+                <img src="venue-cena.jpg" alt="Mesas imperiales de Vino Mundo para la cena" loading="lazy" decoding="async" />
+              </figure>
+              <div class="ticket__row">
+                <div class="ticket__body">
+                  <p class="ticket__label">Nuestra boda · Vie 27 Nov 2026</p>
+                  <h3 class="ticket__title">Cena</h3>
+                  <p class="ticket__place">Vino Mundo · Ciudad Colon</p>
+                </div>
+                <div class="ticket__stub" aria-hidden="true">
+                  <span>7:00</span>
+                  <small>PM</small>
+                </div>
+              </div>
+              <p class="ticket__hint">Toca el boleto para ver como llegar</p>
+            </div>
+            <div class="ticket__face ticket__back">
+              <p class="ticket__label">Cena · 7:00 PM</p>
+              <p class="ticket__desc">Si prefieres llegar directo a la celebracion, te esperamos para brindar y celebrar juntos.</p>
+              <div class="ticket__actions">
+                <a class="map-link" href="https://waze.com/ul?q=Vino%20Mundo%20Ciudad%20Col%C3%B3n&navigate=yes" target="_blank" rel="noopener noreferrer">Abrir en Waze</a>
+                <a class="map-link map-link--alt" href="https://www.google.com/maps/search/?api=1&query=Vino%20Mundo%2C%20Ciudad%20Col%C3%B3n" target="_blank" rel="noopener noreferrer">Google Maps</a>
+                <button type="button" class="map-copy" data-copy="Vino Mundo, Ciudad Colon — https://waze.com/ul?q=Vino%20Mundo%20Ciudad%20Col%C3%B3n&navigate=yes">Copiar ubicacion</button>
+              </div>
+              <p class="ticket__hint">Toca para voltear de regreso</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section reveal countdown" id="countdown">
+      <h2 class="section__title">Cuenta Regresiva</h2>
+      <p class="section__lead">Cada segundo nos acerca a este momento tan esperado.</p>
+
+      <div class="hourglass hourglass--minimal" id="countdown-ring">
+        <svg class="hourglass__svg" viewBox="0 0 220 332" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="hg-arena" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#e6c184"></stop>
+              <stop offset="1" stop-color="#b3834a"></stop>
+            </linearGradient>
+            <linearGradient id="hg-vidrio" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#ffffff" stop-opacity="0.3"></stop>
+              <stop offset="0.32" stop-color="#f6eed9" stop-opacity="0.05"></stop>
+              <stop offset="0.78" stop-color="#f1e5c5" stop-opacity="0.1"></stop>
+              <stop offset="1" stop-color="#ffffff" stop-opacity="0.24"></stop>
+            </linearGradient>
+            <clipPath id="hg-clip-top">
+              <path d="M64 34 C 64 86, 84 120, 105 154 C 107 157, 108 159, 108 162 L 112 162 C 112 159, 113 157, 115 154 C 136 120, 156 86, 156 34 Z"></path>
+            </clipPath>
+            <clipPath id="hg-clip-bottom">
+              <path d="M64 298 C 64 246, 84 212, 105 178 C 107 175, 108 173, 108 170 L 112 170 C 112 173, 113 175, 115 178 C 136 212, 156 246, 156 298 Z"></path>
+            </clipPath>
+          </defs>
+
+          <!-- Sombra calida en el suelo -->
+          <ellipse cx="110" cy="309" rx="66" ry="5.5" fill="rgba(74, 58, 41, 0.13)"></ellipse>
+
+          <!-- Volumen de cristal (tinte casi invisible) -->
+          <path d="M64 34 C 64 86, 84 120, 105 154 C 107 157, 108 159, 108 162 L 112 162 C 112 159, 113 157, 115 154 C 136 120, 156 86, 156 34 Z" fill="url(#hg-vidrio)"></path>
+          <path d="M64 298 C 64 246, 84 212, 105 178 C 107 175, 108 173, 108 170 L 112 170 C 112 173, 113 175, 115 178 C 136 212, 156 246, 156 298 Z" fill="url(#hg-vidrio)"></path>
+
+          <!-- Arena superior (se vacia con el progreso real) -->
+          <g clip-path="url(#hg-clip-top)">
+            <g id="sand-top" transform="translate(0 44)">
+              <path d="M60 10 C 84 4, 98 12, 110 14 C 122 12, 136 4, 160 10 L 160 180 L 60 180 Z" fill="url(#hg-arena)"></path>
+              <path d="M66 9 C 86 4.5, 98 11.5, 110 13.5 C 122 11.5, 134 4.5, 154 9" stroke="#96703c" stroke-width="1" opacity="0.5"></path>
+            </g>
+          </g>
+
+          <!-- Chorro con flujo visible: guiones que descienden + granos -->
+          <g id="sand-stream">
+            <line x1="110" y1="162" x2="110" y2="292" stroke="#c9a15c" stroke-width="1.2" opacity="0.3"></line>
+            <line class="hourglass__stream-dash" x1="110" y1="162" x2="110" y2="292" stroke="#ecca8d" stroke-width="2.2" stroke-dasharray="4 5"></line>
+            <circle class="hourglass__grain" style="--dur: 0.75s; --delay: 0s;" cx="108.9" cy="166" r="1.3" fill="#dcae66"></circle>
+            <circle class="hourglass__grain" style="--dur: 0.95s; --delay: 0.35s;" cx="111.1" cy="164" r="1.15" fill="#dcae66"></circle>
+            <circle class="hourglass__grain" style="--dur: 0.85s; --delay: 0.6s;" cx="110" cy="165" r="1.25" fill="#dcae66"></circle>
+          </g>
+
+          <!-- Arena inferior (monticulo que crece) -->
+          <g clip-path="url(#hg-clip-bottom)">
+            <g id="sand-bottom" transform="translate(0 298) scale(1 0.1) translate(0 -298)">
+              <path d="M62 298 C 84 293, 96 287, 104 262 C 107 252, 108 244, 110 240 C 112 244, 113 252, 116 262 C 124 287, 136 293, 158 298 Z" fill="url(#hg-arena)"></path>
+              <path d="M104 262 C 107 252, 108 244, 110 240 C 112 244, 113 252, 116 262" stroke="#96703c" stroke-width="0.9" opacity="0.45"></path>
+            </g>
+          </g>
+
+          <!-- Brillos del cristal -->
+          <path d="M73 48 C 73 80, 82 104, 92 124" stroke="rgba(255, 255, 255, 0.6)" stroke-width="2.6" stroke-linecap="round" opacity="0.55"></path>
+          <path d="M73 284 C 73 260, 81 240, 91 222" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2.4" stroke-linecap="round" opacity="0.5"></path>
+          <path d="M146 54 C 146 74, 142 90, 136 104" stroke="rgba(255, 255, 255, 0.35)" stroke-width="1.4" stroke-linecap="round" opacity="0.45"></path>
+
+          <!-- Silueta de trazo fino -->
+          <path d="M64 30 C 64 86, 84 120, 105 154 C 107.5 158, 107.5 174, 105 178 C 84 212, 64 246, 64 302" stroke="#46372a" stroke-width="2" stroke-linecap="round"></path>
+          <path d="M156 30 C 156 86, 136 120, 115 154 C 112.5 158, 112.5 174, 115 178 C 136 212, 156 246, 156 302" stroke="#46372a" stroke-width="2" stroke-linecap="round"></path>
+          <path d="M52 30 L 168 30" stroke="#46372a" stroke-width="2.4" stroke-linecap="round"></path>
+          <path d="M52 302 L 168 302" stroke="#46372a" stroke-width="2.4" stroke-linecap="round"></path>
+          <path d="M56 35 L 164 35" stroke="rgba(176, 154, 110, 0.55)" stroke-width="1"></path>
+          <path d="M56 297 L 164 297" stroke="rgba(176, 154, 110, 0.55)" stroke-width="1"></path>
+        </svg>
+      </div>
+
+      <div class="hourglass-caption">
+        <p class="countdown-ring__value" id="countdown-days">0</p>
+        <p class="countdown-ring__label">Dias para la boda</p>
+        <p class="countdown-watch__date">27 · 11 · 2026</p>
+      </div>
+
+      <div class="countdown-grid" id="countdown-grid">
+        <article>
+          <p id="countdown-hours">00</p>
+          <span>Horas</span>
+        </article>
+        <article>
+          <p id="countdown-minutes">00</p>
+          <span>Minutos</span>
+        </article>
+        <article>
+          <p id="countdown-seconds">00</p>
+          <span>Segundos</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="section reveal dresscode" id="dresscode">
+      <h2 class="section__title">Codigo de Vestimenta</h2>
+      <svg class="section__doodle" viewBox="0 0 120 84" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M60 8 C 65 8, 66 14, 61 16 L 60 19"></path>
+        <path d="M60 19 L 37 29 L 83 29 Z"></path>
+        <path d="M52 29 C 54 37, 51 41, 48 47 C 43 58, 45 66, 47 70 L 73 70 C 75 66, 77 58, 72 47 C 69 41, 66 37, 68 29"></path>
+        <path d="M51 45 L 69 45 M58 45 C 56 42, 60 40, 60 43 C 60 40, 64 42, 62 45"></path>
+      </svg>
+
+      <div class="dresscode__panel">
+        <p class="dresscode__ornament" aria-hidden="true">✦ &nbsp;✦&nbsp; ✦</p>
+        <p class="dresscode__main">Coctel · Formal</p>
+        <p class="dresscode__sub">Etiqueta elegante para acompanarnos en este dia tan especial</p>
+
+        <div class="dresscode__grid">
+          <article class="dresscode-card">
+            <span class="dresscode-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M24 6c0 6 3 9 8 9s8-3 8-9" />
+                <path d="M24 6l4 10-6 8 4 10c-6 8-10 16-11 24h34c-1-8-5-16-11-24l4-10-6-8 4-10" />
+              </svg>
+            </span>
+            <h3 class="dresscode-card__title">Mujeres</h3>
+            <p class="dresscode-card__text">Vestido de coctel o vestido midi de estilo elegante.</p>
+          </article>
+
+          <article class="dresscode-card">
+            <span class="dresscode-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 6h20l-4 8h-12z" />
+                <path d="M22 6L12 12l4 44h32l4-44-10-6" />
+                <path d="M26 14l6 10 6-10" />
+                <path d="M32 24v22" />
+              </svg>
+            </span>
+            <h3 class="dresscode-card__title">Hombres</h3>
+            <p class="dresscode-card__text">Traje formal o conjunto elegante de vestir.</p>
+          </article>
+        </div>
+
+        <div class="dresscode__forbidden">
+          <p class="dresscode__forbidden-title">Colores no permitidos</p>
+          <ul class="forbidden-list">
+            <li class="forbidden-chip"><span class="forbidden-chip__dot" style="--chip: #b3372b;" aria-hidden="true"></span>Rojo</li>
+            <li class="forbidden-chip"><span class="forbidden-chip__dot" style="--chip: #2947d1;" aria-hidden="true"></span>Azul rey</li>
+            <li class="forbidden-chip"><span class="forbidden-chip__dot" style="--chip: #0e8c62;" aria-hidden="true"></span>Verde esmeralda</li>
+            <li class="forbidden-chip"><span class="forbidden-chip__dot forbidden-chip__dot--bright" aria-hidden="true"></span>Colores brillantes</li>
+            <li class="forbidden-chip"><span class="forbidden-chip__dot" style="--chip: #ffffff;" aria-hidden="true"></span>Tonos de blanco</li>
+            <li class="forbidden-chip"><span class="forbidden-chip__dot" style="--chip: #d8c8a8;" aria-hidden="true"></span>Beige</li>
+          </ul>
+        </div>
+
+        <p class="dresscode__note">Por favor evitar estos colores y prendas casuales para mantener la etiqueta de la celebracion.</p>
+      </div>
+    </section>
+
+    <section class="section reveal aporte" id="aporte">
+      <h2 class="section__title">Cena y Aporte</h2>
+      <svg class="section__doodle" viewBox="0 0 120 84" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M24 62 L 96 62 M30 66 C 42 71, 78 71, 90 66"></path>
+        <path d="M36 62 C 36 42, 46 31, 60 31 C 74 31, 84 42, 84 62"></path>
+        <path d="M56 27 C 56 23, 64 23, 64 27"></path>
+        <path d="M10 32 L10 40 M14 32 L14 40 M18 32 L18 40 M10 40 C 10 45, 18 45, 18 40 M14 45 L14 60"></path>
+        <path d="M105 32 C 110 37, 110 44, 105 47 L 105 60"></path>
+      </svg>
+      <p class="section__lead">Queremos celebrar contigo alrededor de la mesa. Para reservar tu lugar, cada invitado cubre su cena directamente con nosotros.</p>
+
+      <div class="aporte__panel">
+        <div class="aporte__price">
+          <p class="aporte__amount">₡40.000</p>
+          <p class="aporte__per">por persona</p>
+        </div>
+
+        <div class="cloche" id="cloche" role="button" tabindex="0" aria-label="Levantar la campana y descubrir el menu">
+          <svg class="cloche__svg" viewBox="0 0 160 112" fill="none" stroke="#46372a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <g class="cloche__dome">
+              <path d="M28 82 C 28 48, 50 28, 80 28 C 110 28, 132 48, 132 82 Z" fill="rgba(247, 241, 226, 0.94)"></path>
+              <path d="M74 22 C 74 17, 86 17, 86 22"></path>
+              <path d="M42 66 C 44 50, 54 40, 66 36" stroke="rgba(255, 255, 255, 0.75)" stroke-width="3"></path>
+            </g>
+            <path d="M16 84 L 144 84"></path>
+            <path d="M30 93 C 52 98, 108 98, 130 93"></path>
+          </svg>
+          <p class="cloche__hint">Toca la campana para descubrir el menu</p>
+        </div>
+
+        <ul class="aporte__includes">
+          <li><span class="aporte__check" aria-hidden="true">✓</span>1 entrada</li>
+          <li><span class="aporte__check" aria-hidden="true">✓</span>2 proteinas</li>
+          <li><span class="aporte__check" aria-hidden="true">✓</span>2 guarniciones</li>
+          <li><span class="aporte__check" aria-hidden="true">✓</span>Bebidas y te ilimitado</li>
+          <li><span class="aporte__check" aria-hidden="true">✓</span>Brindis</li>
+        </ul>
+
+        <div class="aporte__tracts">
+          <article class="tract-card">
+            <p class="tract-card__step">Primer aporte</p>
+            <p class="tract-card__date">15 de septiembre</p>
+            <p class="tract-card__text">Puedes pagar en dos tractos. Al pagar la primera parte, tu cupo queda reservado.</p>
+          </article>
+          <article class="tract-card">
+            <p class="tract-card__step">Pago total</p>
+            <p class="tract-card__date">15 de octubre</p>
+            <p class="tract-card__text">El monto completo debe estar cancelado a mas tardar el 15 de octubre.</p>
+          </article>
+        </div>
+
+        <article class="sinpe-card sinpe-card--aporte">
+          <p class="sinpe-card__label">Sinpe Movil para tu aporte</p>
+          <h3 class="sinpe-card__name">Marcel</h3>
+          <p class="sinpe-card__number">6072-0983</p>
+          <button type="button" class="sinpe-card__copy map-copy" data-copy="60720983">Copiar numero</button>
+        </article>
+
+        <p class="aporte__note">Importante: el pago se entrega directamente al restaurante, por lo que no es posible hacer devoluciones de dinero. ¡Gracias por tu comprension!</p>
+
+        <div class="openbar">
+          <svg class="section__doodle section__doodle--openbar" viewBox="0 0 120 84" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M36 20 L52 22 L50 36 C 49 43, 45 46, 42 47 L 38 62 M31 64 L46 66"></path>
+            <path d="M84 20 L68 22 L70 36 C 71 43, 75 46, 78 47 L 82 62 M89 64 L74 66"></path>
+            <path d="M60 8 L60 16 M56 12 L64 12 M50 6 L52 9 M70 6 L68 9"></path>
+          </svg>
+          <p class="openbar__title">¿Deseas alcohol adicional?</p>
+          <p class="openbar__lead">Vino Mundo ofrece paquetes de open bar por persona (impuestos incluidos). Si deseas uno, se coordina y se paga directamente con la wedding planner.</p>
+
+          <div class="openbar__grid">
+            <article class="openbar-card">
+              <h3 class="openbar-card__title">Vino y Cerveza</h3>
+              <p class="openbar-card__desc">Vino de la casa blanco y tinto · Cervezas nacionales (Imperial, I. Light, I. Silver, Pilsen)</p>
+              <p class="openbar-card__price">2h ₡8.500 · 3h ₡10.500<br />4h ₡12.900 · 5h ₡15.400</p>
+            </article>
+            <article class="openbar-card">
+              <h3 class="openbar-card__title">Vino, Cerveza y Sangria</h3>
+              <p class="openbar-card__desc">Vino de la casa · Cervezas nacionales · Sangria blanca y tinta</p>
+              <p class="openbar-card__price">2h ₡11.500 · 3h ₡13.700<br />4h ₡15.900 · 5h ₡18.900</p>
+            </article>
+            <article class="openbar-card">
+              <h3 class="openbar-card__title">Sangria</h3>
+              <p class="openbar-card__desc">Sangria tinta y blanca</p>
+              <p class="openbar-card__price">₡8.500 por 2 horas<br />Hora adicional ₡3.900</p>
+            </article>
+            <article class="openbar-card">
+              <h3 class="openbar-card__title">Gin Tonics</h3>
+              <p class="openbar-card__desc">Clasico, frutos rojos, maracuya, naranja cardamomo</p>
+              <p class="openbar-card__price">₡6.500 por 2 horas<br />Hora adicional ₡2.800</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal gifts" id="gifts">
+      <h2 class="section__title">Mesa de Regalos</h2>
+      <svg class="section__doodle" viewBox="0 0 120 84" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M34 40 L86 40 L84 68 L36 68 Z"></path>
+        <path d="M31 40 L31 32 L89 32 L89 40"></path>
+        <path d="M60 32 L60 68"></path>
+        <path d="M60 32 C 52 30, 48 24, 52 20 C 56 17, 60 24, 60 30 C 60 24, 64 17, 68 20 C 72 24, 68 30, 60 32"></path>
+        <path d="M56 30 C 52 26, 50 25, 46 24 M64 30 C 68 26, 70 25, 74 24"></path>
+      </svg>
+      <p class="gifts__text">Para nosotros, tu presencia es el mejor regalo. Si deseas tener un detalle adicional con nosotros, puedes hacerlo por Sinpe Movil o en efectivo, con mucho carino.</p>
+
+      <div class="gifts__sinpe">
+        <div class="tilt-card" id="sinpe-tilt">
+          <article class="sinpe-card sinpe-card--luxe">
+            <p class="sinpe-card__label">Sinpe Movil</p>
+            <h3 class="sinpe-card__name">Marcel</h3>
+            <p class="sinpe-card__number">6072-0983</p>
+            <button type="button" class="sinpe-card__copy map-copy" data-copy="60720983">Copiar numero</button>
+            <span class="sinpe-card__sheen" aria-hidden="true"></span>
+          </article>
+        </div>
+        <p class="gifts__tilt-hint">Mueve el dedo sobre la tarjeta</p>
+      </div>
+
+      <p class="gifts__cash">Si prefieres no usar Sinpe, tambien recibiremos con mucho gusto tu detalle en efectivo el dia de la boda.</p>
+
+      <button type="button" class="gifts__btn" id="gift-btn">Enviar buenos deseos</button>
+      <p class="gifts__thanks" id="gift-thanks" hidden>Gracias por tu carino y por acompanarnos en este dia tan especial.</p>
+    </section>
+
+    <section class="section reveal quote" id="frase">
+      <h2 class="section__title">Frase Especial</h2>
+      <svg class="section__doodle" viewBox="0 0 120 84" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M30 68 C 48 60, 70 42, 88 18"></path>
+        <path d="M46 60 C 42 52, 46 45, 55 45 C 55 53, 52 58, 46 60 Z"></path>
+        <path d="M62 46 C 60 38, 64 31, 73 31 C 73 39, 68 44, 62 46 Z"></path>
+        <circle cx="42" cy="66" r="1.8"></circle>
+        <circle cx="80" cy="28" r="1.8"></circle>
+      </svg>
+      <div class="quote__medallion" data-photo="novios-7.jpg" role="img" aria-label="Detalle de los anillos"></div>
+      <p class="quote__line">"El amor todo lo puede, todo lo espera y todo lo soporta."</p>
+      <p class="quote__verse">1 Corintios 13</p>
+      <p class="quote__note">Para nosotros, lo mas importante de este gran dia es compartir nuestra union con las personas que amamos. Los esperamos con mucha ilusion para brindar juntos.</p>
+    </section>
+
+    <section class="section reveal rsvp" id="rsvp">
+      <h2 class="section__title">Confirmacion</h2>
+      <svg class="section__doodle" viewBox="0 0 120 84" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M28 24 L92 24 L92 62 L28 62 Z"></path>
+        <path d="M28 24 L60 46 L92 24"></path>
+        <path d="M60 52 C 58 48, 53 48, 53 52 C 53 56, 60 60, 60 60 C 60 60, 67 56, 67 52 C 67 48, 62 48, 60 52 Z"></path>
+        <path d="M36 70 C 48 75, 72 75, 84 69"></path>
+      </svg>
+      <p class="rsvp__text">Por favor confirma tu asistencia antes del <strong>15 de septiembre de 2026</strong>. Recuerda que tu cupo queda reservado al realizar el primer aporte.</p>
+
+      <form class="rsvp__form rsvp-wizard" id="rsvp-form" novalidate>
+        <div class="rsvp-progress" id="rsvp-progress" aria-hidden="true">
+          <span class="rsvp-progress__dot" data-dot="0"></span>
+          <span class="rsvp-progress__bar"></span>
+          <span class="rsvp-progress__dot" data-dot="1"></span>
+          <span class="rsvp-progress__bar" data-bar="2"></span>
+          <span class="rsvp-progress__dot" data-dot="2"></span>
+          <span class="rsvp-progress__bar"></span>
+          <span class="rsvp-progress__dot" data-dot="3"></span>
+        </div>
+        <p class="rsvp-progress__hint" id="rsvp-step-hint">Paso 1 de 4</p>
+
+        <div class="rsvp-wstep is-active" data-wstep="0">
+          <h3 class="rsvp-wstep__title">¿Nos acompanas?</h3>
+
+          <div class="rsvp-choice">
+            <label class="rsvp-choice__card">
+              <input type="radio" name="attend" value="yes" required />
+              <span class="rsvp-choice__mark" aria-hidden="true">✓</span>
+              <span class="rsvp-choice__title">Si, asistire</span>
+              <span class="rsvp-choice__sub">¡Alli nos vemos!</span>
+            </label>
+
+            <label class="rsvp-choice__card rsvp-choice__card--no">
+              <input type="radio" name="attend" value="no" required />
+              <span class="rsvp-choice__mark" aria-hidden="true">✕</span>
+              <span class="rsvp-choice__title">No podre asistir</span>
+              <span class="rsvp-choice__sub">Te extranaremos</span>
+            </label>
+          </div>
+
+          <p class="rsvp-wstep__help">Toca una opcion para continuar.</p>
+        </div>
+
+        <div class="rsvp-wstep" data-wstep="1">
+          <h3 class="rsvp-wstep__title">Cuentanos quien eres</h3>
+
+          <label class="rsvp-field">
+            <span class="rsvp-field__label">Tu nombre completo</span>
+            <input type="text" name="fullName" class="rsvp__input" placeholder="Ejemplo: Maria Fernanda Rojas" autocomplete="name" required />
+            <span class="rsvp-field__help">Tal como aparece en tu invitacion.</span>
+          </label>
+
+          <label class="rsvp-field">
+            <span class="rsvp-field__label">Tu correo electronico</span>
+            <input type="email" name="email" class="rsvp__input" placeholder="ejemplo@correo.com" autocomplete="email" required />
+            <span class="rsvp-field__help">Solo para que puedas editar tu respuesta si algo cambia.</span>
+          </label>
+        </div>
+
+        <div class="rsvp-wstep" data-wstep="2">
+          <h3 class="rsvp-wstep__title">¿Quienes llegan contigo?</h3>
+
+          <div id="attendance-details-wrap">
+            <div class="rsvp-field">
+              <span class="rsvp-field__label">Personas en total (incluyendote)</span>
+              <div class="rsvp-counter">
+                <button type="button" class="rsvp-counter__btn" id="people-minus" aria-label="Una persona menos">−</button>
+                <input type="number" name="peopleCount" id="people-count" class="rsvp__input rsvp-counter__value" min="1" max="12" value="1" inputmode="numeric" />
+                <button type="button" class="rsvp-counter__btn" id="people-plus" aria-label="Una persona mas">+</button>
+              </div>
+            </div>
+
+            <div class="rsvp-field">
+              <span class="rsvp-field__label">Nombre y apellido de cada persona</span>
+              <div id="attendee-names-list" class="rsvp-names"></div>
+              <span class="rsvp-field__help">Asi preparamos el lugar de cada quien con carino.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rsvp-wstep" data-wstep="3">
+          <h3 class="rsvp-wstep__title">Un ultimo detalle <span>(opcional)</span></h3>
+
+          <label class="rsvp-field">
+            <span class="rsvp-field__label">Una cancion que no puede faltar</span>
+            <input type="text" name="song" class="rsvp__input" placeholder="Cancion y artista" />
+          </label>
+
+          <label class="rsvp-field">
+            <span class="rsvp-field__label">Un mensaje para los novios</span>
+            <textarea name="message" class="rsvp__input rsvp__input--textarea" placeholder="Escribe aqui tus buenos deseos"></textarea>
+          </label>
+        </div>
+
+        <div class="rsvp-wizard__nav">
+          <button type="button" class="rsvp-nav-btn rsvp-nav-btn--ghost" id="rsvp-back" hidden>Atras</button>
+          <button type="button" class="rsvp-nav-btn rsvp-nav-btn--solid" id="rsvp-next" hidden>Siguiente</button>
+          <button type="submit" class="rsvp__btn" hidden>Confirmar asistencia</button>
+        </div>
+      </form>
+
+      <p class="rsvp__status" id="rsvp-status" hidden></p>
+      <p class="rsvp__deadline" id="rsvp-deadline-note" hidden>Las confirmaciones se cerraron el 15 de septiembre de 2026.</p>
+      <p class="rsvp__storage">Tu confirmacion se guarda de forma segura y los novios la reciben al instante.</p>
+
+      <div class="rsvp__thanks" id="rsvp-thanks" hidden>
+        <p class="rsvp__summary" id="rsvp-summary"></p>
+        <button type="button" class="rsvp__edit-btn" id="rsvp-edit-btn">Editar respuesta</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p class="footer__names">M &amp; I</p>
+    <p class="footer__year">2026</p>
+    <!-- target="_top": la invitacion puede estar dentro del iframe de la
+         portada; el panel debe abrirse en su propia pagina para que al
+         recargar no vuelva al sobre. -->
+    <p class="footer__admin"><a href="panel-login.html" target="_top">Acceso novios</a></p>
+  </footer>
+
+  <script src="rsvp-api.js?v=20260831a"></script>
+  <script src="invite.js?v=20260902h"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "nombre": "Retro Film Otoñal — Save the Date Marcel & Inés",
+  "analisis_fuente": "savethedate.mp4 (1080x1920, 46.6s, 25fps) — frames muestreados en 2s, 9s, 17s, 25s, 33s, 40s, 45s",
+  "esencia": "Película análoga de otoño: luz dorada de atardecer filtrada entre árboles, bruma cálida, calma y nostalgia. Nada brillante ni saturado; todo respira lento.",
+  "paleta": {
+    "luz_dorada": { "hex": "#e8d9b4", "uso": "Fondos claros, halos de luz, superficies principales" },
+    "crema_lino": { "hex": "#efe7d4", "uso": "Vestuario ivory/lino del video; papel, tarjetas, texto sobre oscuro" },
+    "ambar_bruma": { "hex": "#c9a35c", "uso": "Acentos cálidos, arena, detalles dorados, hover" },
+    "verde_bosque": { "hex": "#41503a", "uso": "Follaje profundo; titulares y anclas oscuras" },
+    "verde_musgo": { "hex": "#5f6b4c", "uso": "Verdes medios, iconografía, subtítulos" },
+    "cafe_corteza": { "hex": "#4a3a29", "uso": "Troncos y sombras cálidas; botones sólidos, trazos" },
+    "sombra_pelicula": { "hex": "#241f17", "uso": "Negros levantados (nunca #000); vignette, texto sobre claro" },
+    "light_leak": { "hex": "#d97a4a", "uso": "Solo micro-acentos (destello del lens flare naranja del bosque); usar con muchísima moderación" }
+  },
+  "tratamiento_fotografico": {
+    "curva": "Negros levantados (mínimo #241f17), altas luces cálidas ligeramente quemadas hacia crema",
+    "balance": "Cálido +15: todo tiende a ámbar/oro, jamás azul frío",
+    "saturacion": "Reducida ~15%; verdes apagados hacia oliva, pieles melocotón suave",
+    "grano": "Fino, tipo 35mm ISO 400, opacidad 4-6%",
+    "halation": "Resplandor suave alrededor de las altas luces (bloom cálido)",
+    "vignette": "Esquinas oscurecidas sutiles, radial, café translúcido",
+    "css_filter_equivalente": "sepia(0.18) hue-rotate(-6deg) saturate(0.85) contrast(0.96) brightness(1.02)"
+  },
+  "fondo_propuesto": {
+    "descripcion": "Sustituir la textura damasco en relieve (retro-victoriana) por un fondo de calma otoñal moderna",
+    "base": "Degradado vertical suave: #efe7d4 arriba → #e8d9b4 centro → #ded0ae abajo",
+    "atmosfera": "Halos radiales de luz dorada muy difusos (como el sol entre árboles del frame 2s), 2-3 manchas grandes desenfocadas",
+    "textura": "Grano de película fino (SVG feTurbulence u overlay PNG al 4%) en vez de relieve; opcional fibra de papel japonés casi invisible",
+    "elementos": "Se conservan las hojas de otoño reales cayendo y los dibujos a mano; las flores de esquina pueden bajar a opacidad 0.5 o retirarse para el look más limpio"
+  },
+  "tipografia": {
+    "monograma_y_titulos": "Serif romana espaciada estilo créditos de cine (el M&I del video usa serif clásica con ligadura) — mantener Cormorant Garamond; para titulares muy grandes, versalitas con tracking 0.25em como el SAVE THE DATE del video",
+    "guiones": "La caligrafía 'Vino Mundo' del video valida el uso de script solo para firmas y acentos, nunca párrafos"
+  },
+  "movimiento": {
+    "ritmo": "Lento y flotante: transiciones 600-900ms, easing suave (cubic-bezier(0.22, 1, 0.36, 1))",
+    "scroll": "Todo ligado al scroll con persecución suave, sin saltos; sensación 120 Hz con transforms puros",
+    "detalle": "Los elementos entran con fade + drift vertical de 20-30px, como polvo en la luz"
+  }
+}
