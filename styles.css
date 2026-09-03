@@ -2733,7 +2733,7 @@ body.invitation-open {
 
 /* Monograma: pluma de tinta chocolate. */
 .premiere__mono {
-  background: radial-gradient(120% 100% at 50% 0%, rgba(250, 247, 240, 0.75) 0%, rgba(245, 240, 228, 0.94) 100%);
+  background: radial-gradient(120% 100% at 50% 0%, rgba(251, 248, 242, 0.995) 0%, rgba(245, 240, 228, 1) 100%);
 }
 
 .premiere__mono-text {
