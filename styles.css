@@ -1977,12 +1977,12 @@ body.invitation-open {
 
 /* ── Iris dorado de borde suave que abre la pelicula ── */
 .premiere__iris {
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   width: 240vmax;
   height: 240vmax;
-  z-index: 6;
+  z-index: 1300;
   pointer-events: none;
   border-radius: 50%;
   background: radial-gradient(
@@ -2206,9 +2206,9 @@ body.invitation-open {
    ============================================================ */
 
 .premiere__mono {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  z-index: 5;
+  z-index: 1200;
   display: grid;
   place-items: center;
   background: radial-gradient(120% 100% at 50% 0%, rgba(12, 16, 8, 0.5) 0%, rgba(7, 9, 5, 0.82) 100%);

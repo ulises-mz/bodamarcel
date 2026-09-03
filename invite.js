@@ -1426,6 +1426,7 @@ const videoVignette = document.getElementById('video-vignette');
 const videoWash = document.getElementById('video-wash');
 const videoHint = document.getElementById('video-hint');
 const videoSoundButton = document.getElementById('video-sound');
+const videoTapButton = document.getElementById('video-tap');
 const heroPortrait = document.querySelector('.hero__portrait');
 
 if (videoIntro && videoFrame && introVideo && heroPortrait) {
@@ -1607,6 +1608,7 @@ if (videoIntro && videoFrame && introVideo && heroPortrait) {
   // click de "Ver Invitacion" (gesto del usuario, mismo origen).
   window.__startTrailerSound = function startTrailerSound() {
     trailerStarted = true;
+    vigilarReproduccion();
 
     // iOS lanza si aun no hay metadata: el reinicio nunca debe abortar el play.
     try { introVideo.currentTime = 0; } catch (error) { /* sin metadata todavia */ }
@@ -1642,6 +1644,35 @@ if (videoIntro && videoFrame && introVideo && heroPortrait) {
   // Asegura que el video corra SIN reiniciarlo. iOS rechaza el play
   // mientras el elemento esta invisible (el iframe arranca oculto), asi
   // que hay que reintentar cuando ya se ve y ante el primer toque.
+  // Si pese a todo el navegador no arranca, se ofrece el toque directo
+  // sobre el video: ese gesto Safari no lo rechaza nunca.
+  function vigilarReproduccion() {
+    setTimeout(() => {
+      if (!videoTapButton) return;
+      videoTapButton.hidden = !introVideo.paused;
+    }, 1800);
+  }
+
+  if (videoTapButton) {
+    videoTapButton.addEventListener('click', () => {
+      soundUnlocked = true;
+      introVideo.muted = false;
+      const intento = introVideo.play();
+      if (intento && typeof intento.catch === 'function') {
+        intento.catch(() => {
+          introVideo.muted = true;
+          safePlay(introVideo);
+          if (videoSoundButton) videoSoundButton.hidden = false;
+        });
+      }
+      videoTapButton.hidden = true;
+    });
+  }
+
+  introVideo.addEventListener('playing', () => {
+    if (videoTapButton) videoTapButton.hidden = true;
+  });
+
   window.__asegurarVideo = function asegurarVideo() {
     if (!introVideo.paused) return;
     const intento = introVideo.play();

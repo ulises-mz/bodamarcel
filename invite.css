@@ -3608,3 +3608,62 @@ body {
     transition-delay: calc(0.12s + var(--wi) * 0.045s);
   }
 }
+
+/* ============================================================
+   NUEVO — Rescate visible si el navegador bloquea el video
+   Cuando iOS se niega a reproducir pese a todo, el invitado ve un
+   boton sobre el trailer: su toque cae DIRECTO sobre el video, que
+   es el unico gesto que Safari nunca rechaza.
+   ============================================================ */
+.video-intro__tap {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  width: 100%;
+  border: 0;
+  background: rgba(20, 16, 12, 0.28);
+  color: #f6f1e4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.video-intro__tap[hidden] {
+  display: none !important;
+}
+
+.video-intro__tap-disc {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  border: 1px solid rgba(246, 241, 228, 0.75);
+  background: rgba(246, 241, 228, 0.16);
+  display: grid;
+  place-items: center;
+  animation: tapPulse 2.4s ease-out infinite;
+}
+
+.video-intro__tap-disc svg {
+  width: 34%;
+  height: 34%;
+  transform: translateX(8%);
+}
+
+.video-intro__tap-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes tapPulse {
+  0% { box-shadow: 0 0 0 0 rgba(246, 241, 228, 0.4); }
+  70% { box-shadow: 0 0 0 26px rgba(246, 241, 228, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(246, 241, 228, 0); }
+}

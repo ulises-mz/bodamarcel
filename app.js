@@ -136,7 +136,9 @@ async function startPremiere() {
 
   landingScene.classList.add('is-counting');
 
-  // El audio del trailer arranca ya (leader sonoro), con el gesto vivo.
+  // iOS solo reproduce si el video esta VISIBLE: se descubre el iframe
+  // en este mismo gesto y el monograma lo tapa mientras se dibuja.
+  showInvitationOverlay();
   startTrailerFromGesture();
 
   // El monograma se dibuja en oro sobre la luz (1.8s) y se rellena.
@@ -149,10 +151,6 @@ async function startPremiere() {
     if (monoPanel) monoPanel.classList.add('is-leaving');
     if (iris) iris.classList.add('is-open');
   }, 2950);
-
-  setTimeout(() => {
-    showInvitationOverlay();
-  }, 3500);
 
   setTimeout(() => {
     if (monoPanel) monoPanel.hidden = true;
