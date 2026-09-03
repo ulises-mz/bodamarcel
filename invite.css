@@ -3532,3 +3532,15 @@ body {
     animation: none;
   }
 }
+
+/* iOS ignora overscroll-behavior para el arrastre del documento:
+   touch-action pan-y prohibe el gesto horizontal de raiz. */
+html,
+body {
+  touch-action: pan-y;
+}
+
+/* La nav sigue siendo desplazable a lo ancho por dentro. */
+.quick-nav {
+  touch-action: pan-x;
+}

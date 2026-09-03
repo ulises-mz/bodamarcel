@@ -2763,3 +2763,9 @@ body {
   overflow-x: clip;
   overscroll-behavior-x: none;
 }
+
+/* iOS: prohibir el gesto horizontal (el "estirar" con el dedo). */
+html,
+body {
+  touch-action: pan-y;
+}

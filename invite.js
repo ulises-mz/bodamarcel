@@ -1639,6 +1639,29 @@ if (videoIntro && videoFrame && introVideo && heroPortrait) {
     }
   };
 
+  // Asegura que el video corra SIN reiniciarlo. iOS rechaza el play
+  // mientras el elemento esta invisible (el iframe arranca oculto), asi
+  // que hay que reintentar cuando ya se ve y ante el primer toque.
+  window.__asegurarVideo = function asegurarVideo() {
+    if (!introVideo.paused) return;
+    const intento = introVideo.play();
+    if (intento && typeof intento.catch === 'function') {
+      intento.catch(() => {
+        introVideo.muted = true;
+        safePlay(introVideo);
+        if (videoSoundButton) videoSoundButton.hidden = false;
+      });
+    }
+  };
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) window.__asegurarVideo();
+  });
+
+  ['touchstart', 'pointerdown'].forEach((evento) => {
+    document.addEventListener(evento, () => window.__asegurarVideo(), { passive: true });
+  });
+
   if (videoSoundButton) {
     videoSoundButton.addEventListener('click', () => {
       soundUnlocked = true;

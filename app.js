@@ -91,6 +91,27 @@ function showInvitationOverlay() {
   invitationOverlay.setAttribute('aria-hidden', 'false');
   document.body.classList.add('invitation-open');
   document.documentElement.classList.add('invitation-open');
+
+  // iOS Safari NO reproduce video dentro de un elemento invisible, asi
+  // que el play del gesto se rechazo mientras el iframe estaba oculto.
+  // Ahora que ya se ve, se reintenta (sin reiniciar el trailer).
+  asegurarVideo();
+  setTimeout(asegurarVideo, 350);
+  setTimeout(asegurarVideo, 1200);
+}
+
+function asegurarVideo() {
+  try {
+    if (
+      invitationFrame &&
+      invitationFrame.contentWindow &&
+      typeof invitationFrame.contentWindow.__asegurarVideo === 'function'
+    ) {
+      invitationFrame.contentWindow.__asegurarVideo();
+    }
+  } catch (error) {
+    /* sin acceso al iframe */
+  }
 }
 
 /* ── El gesto del toque desbloquea el sonido del trailer ── */
