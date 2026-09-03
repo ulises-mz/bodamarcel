@@ -8,7 +8,7 @@ const revealObserver = new IntersectionObserver(
       revealObserver.unobserve(entry.target);
     });
   },
-  { threshold: 0.16 }
+  { threshold: 0, rootMargin: '320px 0px 320px 0px' }
 );
 
 revealItems.forEach((item) => revealObserver.observe(item));
@@ -22,7 +22,7 @@ const stepRevealObserver = new IntersectionObserver(
       stepRevealObserver.unobserve(entry.target);
     });
   },
-  { threshold: 0.18, rootMargin: '0px 0px -6% 0px' }
+  { threshold: 0, rootMargin: '280px 0px 280px 0px' }
 );
 
 document.querySelectorAll('.memory-step').forEach((step) => stepRevealObserver.observe(step));
@@ -47,7 +47,7 @@ const lazyPhotoObserver = new IntersectionObserver(
       loader.src = source;
     });
   },
-  { rootMargin: '600px 0px 600px 0px' }
+  { rootMargin: '1600px 0px 1600px 0px' }
 );
 
 document.querySelectorAll('[data-photo]').forEach((el) => lazyPhotoObserver.observe(el));

@@ -3497,11 +3497,8 @@ body {
     background: rgba(249, 245, 236, 0.96);
   }
 
-  /* El navegador se salta el pintado de lo que no esta en pantalla */
-  .section {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 1100px;
-  }
+  /* content-visibility se retiro: al hacer scroll rapido el pintado
+     diferido se notaba como si la seccion no cargara. */
 
   /* Sombras mas baratas de rasterizar */
   .hourglass { filter: none; }
@@ -3543,4 +3540,71 @@ body {
 /* La nav sigue siendo desplazable a lo ancho por dentro. */
 .quick-nav {
   touch-action: pan-x;
+}
+
+/* ============================================================
+   NUEVO — Aparicion sin sensacion de carga
+   Con scroll rapido, esperas largas se leen como "no cargo".
+   En movil las piezas entran mas rapido y con menos escalonado,
+   y las secciones ya se revelan antes de llegar (rootMargin).
+   ============================================================ */
+@media (max-width: 900px) {
+  .section > *,
+  .section .section__title {
+    transition-duration: 0.42s;
+  }
+
+  .section.visible > *:nth-child(1) { transition-delay: 0s; }
+  .section.visible > *:nth-child(2) { transition-delay: 0.05s; }
+  .section.visible > *:nth-child(3) { transition-delay: 0.1s; }
+  .section.visible > *:nth-child(4) { transition-delay: 0.15s; }
+  .section.visible > *:nth-child(5) { transition-delay: 0.2s; }
+  .section.visible > *:nth-child(n + 6) { transition-delay: 0.24s; }
+
+  /* El goteo de tarjetas y listas se acorta a un guino */
+  .section .event-grid article,
+  .section .dresscode__grid article,
+  .section .aporte__includes li,
+  .section .aporte__tracts article,
+  .section .forbidden-list li,
+  .section .openbar__grid article,
+  .section .countdown-grid article {
+    transition-duration: 0.36s;
+  }
+
+  .section.visible .event-grid article:nth-child(1),
+  .section.visible .dresscode__grid article:nth-child(1),
+  .section.visible .aporte__includes li:nth-child(1),
+  .section.visible .aporte__tracts article:nth-child(1),
+  .section.visible .forbidden-list li:nth-child(1),
+  .section.visible .openbar__grid article:nth-child(1),
+  .section.visible .countdown-grid article:nth-child(1) { transition-delay: 0.12s; }
+
+  .section.visible .event-grid article:nth-child(2),
+  .section.visible .dresscode__grid article:nth-child(2),
+  .section.visible .aporte__includes li:nth-child(2),
+  .section.visible .aporte__tracts article:nth-child(2),
+  .section.visible .forbidden-list li:nth-child(2),
+  .section.visible .openbar__grid article:nth-child(2),
+  .section.visible .countdown-grid article:nth-child(2) { transition-delay: 0.18s; }
+
+  .section.visible .aporte__includes li:nth-child(3),
+  .section.visible .forbidden-list li:nth-child(3),
+  .section.visible .openbar__grid article:nth-child(3),
+  .section.visible .countdown-grid article:nth-child(3) { transition-delay: 0.24s; }
+
+  .section.visible .aporte__includes li:nth-child(4),
+  .section.visible .forbidden-list li:nth-child(4),
+  .section.visible .openbar__grid article:nth-child(4) { transition-delay: 0.3s; }
+
+  .section.visible .aporte__includes li:nth-child(5),
+  .section.visible .forbidden-list li:nth-child(5) { transition-delay: 0.36s; }
+
+  .section.visible .forbidden-list li:nth-child(6) { transition-delay: 0.42s; }
+
+  /* La frase se escribe mas agil */
+  .quote__line .quote__w {
+    transition-duration: 0.36s;
+    transition-delay: calc(0.12s + var(--wi) * 0.045s);
+  }
 }
