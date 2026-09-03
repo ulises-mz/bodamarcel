@@ -789,9 +789,12 @@ body.invitation-open {
   z-index: 1100;
   background: var(--cream);
   opacity: 0;
-  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.65s ease, visibility 0s linear 0.65s;
+  /* Nada de visibility: hidden. iOS Safari se niega a reproducir el
+     video del iframe si su contenedor esta oculto, y el trailer
+     arrancaba muerto. Con opacity 0 el iframe sigue siendo
+     "visible" para el motor y el autoplay silencioso funciona. */
+  transition: opacity 0.65s ease;
 }
 
 .invitation-overlay.visible {
