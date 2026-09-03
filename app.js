@@ -163,6 +163,15 @@ function intentarArranque() {
 // al viewBox todo contenido con filter --y este texto lleva un
 // drop-shadow--, por eso solo se notaba en el telefono. Medir la tinta
 // real y encuadrarla es inmune a la fuente, al trazo y al resplandor.
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(() => {
+    if (monoPanel && !monoPanel.hidden) ajustarMonograma();
+  });
+}
+window.addEventListener('orientationchange', () => {
+  if (monoPanel && !monoPanel.hidden) setTimeout(ajustarMonograma, 120);
+});
+
 function ajustarMonograma() {
   if (!monoPanel) return;
   const svg = monoPanel.querySelector('.premiere__mono-svg');
@@ -171,7 +180,10 @@ function ajustarMonograma() {
   try {
     const caja = texto.getBBox();
     if (!caja.width || !caja.height) return;
-    const aire = Math.max(28, caja.height * 0.24);
+    // Aire generoso: Safari mide getBBox() de texto distinto que Blink
+    // --puede reportar la caja de avance en vez de la tinta-- asi que el
+    // margen no puede depender de que la medida sea exacta.
+    const aire = Math.max(34, caja.height * 0.3, caja.width * 0.1);
     svg.setAttribute('viewBox', [
       (caja.x - aire).toFixed(1),
       (caja.y - aire).toFixed(1),

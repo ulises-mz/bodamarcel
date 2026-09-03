@@ -2738,7 +2738,10 @@ body.invitation-open {
 
 .premiere__mono-text {
   stroke: #4a3a29;
-  filter: drop-shadow(0 2px 10px rgba(70, 55, 42, 0.2));
+  /* Sin filter: WebKit recorta al viewBox el contenido filtrado y el
+     floreo de la ultima letra salia cortado en el telefono. El
+     monograma es linea de tinta; la sombra no le hacia falta. */
+  filter: none;
 }
 
 @keyframes monoFill {
