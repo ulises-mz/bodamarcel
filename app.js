@@ -156,6 +156,33 @@ function intentarArranque() {
   return false;
 }
 
+/* ── El monograma se ajusta a su propia tinta ── */
+// Great Vibes desborda su caja de avance: la I final lleva un floreo
+// largo, asi que con el viewBox fijo de 440 el texto llegaba a 443.8 y
+// se cortaba. Y aunque el svg declara overflow: visible, WebKit recorta
+// al viewBox todo contenido con filter --y este texto lleva un
+// drop-shadow--, por eso solo se notaba en el telefono. Medir la tinta
+// real y encuadrarla es inmune a la fuente, al trazo y al resplandor.
+function ajustarMonograma() {
+  if (!monoPanel) return;
+  const svg = monoPanel.querySelector('.premiere__mono-svg');
+  const texto = monoPanel.querySelector('.premiere__mono-text');
+  if (!svg || !texto) return;
+  try {
+    const caja = texto.getBBox();
+    if (!caja.width || !caja.height) return;
+    const aire = Math.max(28, caja.height * 0.24);
+    svg.setAttribute('viewBox', [
+      (caja.x - aire).toFixed(1),
+      (caja.y - aire).toFixed(1),
+      (caja.width + aire * 2).toFixed(1),
+      (caja.height + aire * 2).toFixed(1)
+    ].join(' '));
+  } catch (error) {
+    /* sin layout todavia: se queda el viewBox del HTML */
+  }
+}
+
 /* ── La premiere: 3, 2, 1... y la pelicula ── */
 async function startPremiere() {
   if (premiereStarted) return;
@@ -171,6 +198,7 @@ async function startPremiere() {
   // El monograma se dibuja en oro sobre la luz (1.8s) y se rellena.
   if (monoPanel) {
     monoPanel.hidden = false;
+    ajustarMonograma();
     requestAnimationFrame(() => monoPanel.classList.add('is-drawing'));
   }
 
