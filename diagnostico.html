@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Diagnostico de video</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 18px 16px 60px;
+    background: #12100e; color: #efe9dd;
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  h1 { font-size: 19px; margin: 0 0 4px; letter-spacing: .02em; }
+  .sub { color: #9d9384; font-size: 13px; margin: 0 0 18px; }
+  .prueba {
+    border: 1px solid #2e2a24; border-radius: 12px;
+    padding: 12px 14px; margin-bottom: 10px; background: #191612;
+  }
+  .titulo { font-weight: 600; font-size: 14px; display: flex; gap: 8px; align-items: baseline; }
+  .estado { font-size: 12px; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+  .esperando { background: #3a342a; color: #b9ad98; }
+  .ok   { background: #24401f; color: #a9e59a; }
+  .mal  { background: #4b1f1f; color: #ffb0a8; }
+  .detalle { color: #a79c8b; font-size: 12.5px; margin-top: 7px; white-space: pre-wrap; word-break: break-word; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  video { width: 100%; max-width: 260px; border-radius: 10px; margin-top: 10px; background: #000; display: block; }
+  button {
+    -webkit-appearance: none; appearance: none; border: 0; cursor: pointer;
+    background: #c9bda4; color: #221c14; font: 600 15px/1 inherit;
+    padding: 14px 18px; border-radius: 10px; width: 100%; margin-top: 12px;
+  }
+  button.sec { background: #2e2a24; color: #efe9dd; }
+  #resumen {
+    margin-top: 20px; padding: 14px; border-radius: 12px;
+    background: #0d0b09; border: 1px solid #2e2a24;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11.5px; white-space: pre-wrap; word-break: break-word; color: #c8bfae;
+  }
+</style>
+</head>
+<body>
+
+<h1>Diagnóstico de video</h1>
+<p class="sub">Abrí esta página en el iPhone donde falla, esperá a que terminen las pruebas y mandame el resumen del final.</p>
+
+<div class="prueba" id="p-info">
+  <div class="titulo">1 · Dispositivo <span class="estado esperando">…</span></div>
+  <div class="detalle"></div>
+</div>
+
+<div class="prueba" id="p-rango-mp4">
+  <div class="titulo">2 · Rangos de bytes en .mp4 <span class="estado esperando">…</span></div>
+  <div class="detalle"></div>
+</div>
+
+<div class="prueba" id="p-rango-m4v">
+  <div class="titulo">3 · Rangos de bytes en .m4v <span class="estado esperando">…</span></div>
+  <div class="detalle"></div>
+</div>
+
+<div class="prueba" id="p-auto-mp4">
+  <div class="titulo">4 · Reproducir .mp4 sin tocar <span class="estado esperando">…</span></div>
+  <div class="detalle"></div>
+  <video id="v-mp4" muted playsinline webkit-playsinline preload="auto" src="savethedate.mp4"></video>
+</div>
+
+<div class="prueba" id="p-auto-m4v">
+  <div class="titulo">5 · Reproducir .m4v sin tocar <span class="estado esperando">…</span></div>
+  <div class="detalle"></div>
+  <video id="v-m4v" muted playsinline webkit-playsinline preload="auto" src="savethedate.m4v"></video>
+</div>
+
+<div class="prueba" id="p-gesto">
+  <div class="titulo">6 · Reproducir con un toque <span class="estado esperando">…</span></div>
+  <div class="detalle">Tocá el botón. Esto distingue un bloqueo de autoplay (Modo de Bajo Consumo) de un archivo que el iPhone no puede leer.</div>
+  <video id="v-gesto" playsinline webkit-playsinline preload="auto"></video>
+  <button id="btn-mp4">Probar .mp4 con sonido</button>
+  <button id="btn-m4v" class="sec">Probar .m4v con sonido</button>
+</div>
+
+<div id="resumen">Corriendo pruebas…</div>
+<button id="copiar" class="sec">Copiar resumen</button>
+
+<script>
+(function () {
+  var lineas = [];
+  function anota(t) { lineas.push(t); pintaResumen(); }
+  function pintaResumen() {
+    document.getElementById('resumen').textContent = lineas.join('\n');
+  }
+  function marca(id, estado, texto) {
+    var caja = document.getElementById(id);
+    var chip = caja.querySelector('.estado');
+    chip.className = 'estado ' + (estado === 'ok' ? 'ok' : estado === 'mal' ? 'mal' : 'esperando');
+    chip.textContent = estado === 'ok' ? 'BIEN' : estado === 'mal' ? 'FALLA' : '…';
+    if (texto != null) caja.querySelector('.detalle').textContent = texto;
+  }
+
+  /* 1 · Dispositivo */
+  var ua = navigator.userAgent;
+  var ios = (ua.match(/OS (\d+)[_.](\d+)/) || [])[0] || 'desconocido';
+  var info =
+    'UA: ' + ua + '\n' +
+    'iOS: ' + ios + '\n' +
+    'Pantalla: ' + window.innerWidth + 'x' + window.innerHeight +
+    ' @' + (window.devicePixelRatio || 1) + 'x\n' +
+    'Conexión: ' + (navigator.connection ? navigator.connection.effectiveType : 'n/d') + '\n' +
+    'Memoria: ' + (navigator.deviceMemory || 'n/d');
+  marca('p-info', 'ok', info);
+  anota('== DISPOSITIVO ==');
+  anota(info);
+
+  /* 2 y 3 · Rangos de bytes */
+  function pruebaRango(archivo, id, etiqueta) {
+    return fetch(archivo + '?dx=' + Date.now(), { headers: { Range: 'bytes=0-1' } })
+      .then(function (r) {
+        var d =
+          'HTTP ' + r.status + ' ' + r.statusText + '\n' +
+          'content-range: ' + (r.headers.get('content-range') || '(ausente)') + '\n' +
+          'content-length: ' + (r.headers.get('content-length') || '(ausente)') + '\n' +
+          'content-type: ' + (r.headers.get('content-type') || '(ausente)') + '\n' +
+          'cf-cache-status: ' + (r.headers.get('cf-cache-status') || '(ausente)');
+        var bien = r.status === 206;
+        marca(id, bien ? 'ok' : 'mal', d + '\n\n' + (bien
+          ? 'El servidor responde por rangos. Safari puede reproducirlo.'
+          : 'El servidor IGNORA el rango y manda 200. Safari se niega a reproducir.'));
+        anota('\n== RANGO ' + etiqueta + ' ==');
+        anota(d);
+        return bien;
+      })
+      .catch(function (e) {
+        marca(id, 'mal', 'Error de red: ' + e.message);
+        anota('\n== RANGO ' + etiqueta + ' == error ' + e.message);
+        return false;
+      });
+  }
+
+  /* 4 y 5 · Reproduccion automatica */
+  function pruebaAuto(videoId, cajaId, etiqueta) {
+    return new Promise(function (resolve) {
+      var v = document.getElementById(videoId);
+      var listo = false;
+      function cerrar(bien, texto) {
+        if (listo) return;
+        listo = true;
+        marca(cajaId, bien ? 'ok' : 'mal', texto);
+        anota('\n== AUTOPLAY ' + etiqueta + ' ==');
+        anota(texto.replace(/\n+/g, ' | '));
+        resolve(bien);
+      }
+      var errores = { 1: 'ABORTED (cancelado)', 2: 'NETWORK (fallo de red)', 3: 'DECODE (no puede decodificar)', 4: 'SRC_NOT_SUPPORTED (formato o servidor rechazado)' };
+      v.addEventListener('error', function () {
+        var c = v.error ? v.error.code : 0;
+        cerrar(false, 'error del elemento: ' + (errores[c] || c) +
+          '\nreadyState=' + v.readyState + ' networkState=' + v.networkState);
+      });
+      var p = v.play();
+      if (p && p.catch) {
+        p.catch(function (e) {
+          cerrar(false, 'play() rechazado: ' + e.name + ' — ' + e.message +
+            '\nreadyState=' + v.readyState + ' networkState=' + v.networkState +
+            '\nerror=' + (v.error ? (errores[v.error.code] || v.error.code) : 'ninguno'));
+        });
+      }
+      setTimeout(function () {
+        if (v.currentTime > 0.15 && !v.paused) {
+          cerrar(true, 'Reproduce. t=' + v.currentTime.toFixed(2) + 's readyState=' + v.readyState);
+        } else {
+          cerrar(false, 'No avanza. t=' + v.currentTime.toFixed(2) +
+            ' pausado=' + v.paused + ' readyState=' + v.readyState +
+            ' networkState=' + v.networkState +
+            '\nerror=' + (v.error ? (errores[v.error.code] || v.error.code) : 'ninguno') +
+            '\nbuffer=' + (v.buffered.length ? v.buffered.end(0).toFixed(1) + 's' : '0s'));
+        }
+      }, 4500);
+    });
+  }
+
+  /* 6 · Con gesto */
+  function conGesto(archivo, etiqueta) {
+    var v = document.getElementById('v-gesto');
+    v.src = archivo + '?g=' + Date.now();
+    v.muted = false;
+    var p = v.play();
+    function informa(texto) {
+      marca('p-gesto', texto.indexOf('Reproduce') === 0 ? 'ok' : 'mal', texto);
+      anota('\n== CON GESTO ' + etiqueta + ' ==');
+      anota(texto.replace(/\n+/g, ' | '));
+    }
+    if (p && p.then) {
+      p.then(function () {
+        setTimeout(function () {
+          informa(v.currentTime > 0.1
+            ? 'Reproduce con el toque. t=' + v.currentTime.toFixed(2) + 's'
+            : 'play() aceptado pero NO avanza. t=' + v.currentTime.toFixed(2) +
+              ' readyState=' + v.readyState);
+        }, 1800);
+      }).catch(function (e) {
+        informa('play() rechazado con gesto: ' + e.name + ' — ' + e.message);
+      });
+    }
+  }
+  document.getElementById('btn-mp4').addEventListener('click', function () { conGesto('savethedate.mp4', '.mp4'); });
+  document.getElementById('btn-m4v').addEventListener('click', function () { conGesto('savethedate.m4v', '.m4v'); });
+
+  /* Secuencia */
+  pruebaRango('savethedate.mp4', 'p-rango-mp4', '.mp4')
+    .then(function () { return pruebaRango('savethedate.m4v', 'p-rango-m4v', '.m4v'); })
+    .then(function () { return pruebaAuto('v-mp4', 'p-auto-mp4', '.mp4'); })
+    .then(function () { return pruebaAuto('v-m4v', 'p-auto-m4v', '.m4v'); })
+    .then(function () { anota('\n== FIN =='); });
+
+  document.getElementById('copiar').addEventListener('click', function () {
+    var t = lineas.join('\n');
+    if (navigator.clipboard) navigator.clipboard.writeText(t);
+    this.textContent = 'Copiado';
+  });
+})();
+</script>
+</body>
+</html>
