@@ -1613,26 +1613,23 @@ if (videoIntro && videoFrame && introVideo && heroPortrait) {
     // iOS lanza si aun no hay metadata: el reinicio nunca debe abortar el play.
     try { introVideo.currentTime = 0; } catch (error) { /* sin metadata todavia */ }
 
-    // Intento con sonido; si el navegador lo bloquea, el video se reproduce
-    // igual en silencio y aparece el boton para activarlo con un toque.
-    introVideo.muted = false;
-    const conSonido = introVideo.play();
+    // ORDEN CRITICO EN iOS: primero la imagen, despues el sonido.
+    // Un play() con audio exige activacion de usuario dentro de ESTE frame,
+    // y el gesto de la portada vive en el documento padre: no siempre cruza
+    // el iframe. Si se pedia sonido de entrada y Safari lo rechazaba, el
+    // reintento en silencio caia dentro del .catch --otra tarea, ya sin
+    // gesto valido-- y entonces no se veia NADA. Arrancando en silencio la
+    // imagen sale siempre; el audio se pide sobre un video ya corriendo.
+    introVideo.muted = true;
+    const arranque = introVideo.play();
 
-    if (conSonido && typeof conSonido.then === 'function') {
-      conSonido
-        .then(() => {
-          soundUnlocked = true;
-          if (videoSoundButton) videoSoundButton.hidden = true;
-        })
-        .catch(() => {
-          introVideo.muted = true;
-          safePlay(introVideo);
-          if (videoSoundButton) videoSoundButton.hidden = false;
-        });
+    if (arranque && typeof arranque.then === 'function') {
+      arranque.then(pedirSonido).catch(() => {
+        // Ni en silencio: queda el toque directo sobre el video.
+        if (videoTapButton) videoTapButton.hidden = false;
+      });
     } else {
-      // Navegador sin promesa en play(): asegurar reproduccion silenciosa.
-      introVideo.muted = true;
-      safePlay(introVideo);
+      pedirSonido();
     }
 
     if (ambientVideo && window.matchMedia('(min-width: 700px)').matches) {
@@ -1641,16 +1638,74 @@ if (videoIntro && videoFrame && introVideo && heroPortrait) {
     }
   };
 
+  // Quita el silencio de un video que YA se esta reproduciendo. Si el
+  // navegador solo lo permitia por estar en mute, lo pausa al desmutear:
+  // por eso se comprueba un instante despues y se vuelve al silencio con
+  // el boton de sonido a la vista, en vez de perder la imagen.
+  function pedirSonido() {
+    if (soundUnlocked || introVideo.paused) return;
+
+    // Si el navegador revoca la reproduccion al quitar el silencio, hay
+    // que devolver la imagen en el mismo instante --no 140ms despues--
+    // o el trailer se queda congelado en el primer segundo.
+    let resuelto = false;
+    function rescatar() {
+      if (resuelto) return;
+      resuelto = true;
+      introVideo.muted = true;
+      safePlay(introVideo);
+      if (videoSoundButton) videoSoundButton.hidden = false;
+    }
+    introVideo.addEventListener('pause', rescatar, { once: true });
+
+    introVideo.muted = false;
+    try { introVideo.volume = 1; } catch (error) { /* solo lectura */ }
+
+    setTimeout(() => {
+      introVideo.removeEventListener('pause', rescatar);
+      if (resuelto) return;
+      if (introVideo.paused || introVideo.muted) {
+        rescatar();
+      } else {
+        resuelto = true;
+        soundUnlocked = true;
+        if (videoSoundButton) videoSoundButton.hidden = true;
+      }
+    }, 400);
+  }
+
   // Asegura que el video corra SIN reiniciarlo. iOS rechaza el play
   // mientras el elemento esta invisible (el iframe arranca oculto), asi
   // que hay que reintentar cuando ya se ve y ante el primer toque.
   // Si pese a todo el navegador no arranca, se ofrece el toque directo
   // sobre el video: ese gesto Safari no lo rechaza nunca.
+  // Vigilante del trailer. Los navegadores pausan por su cuenta un video
+  // mudo que consideran "no visible" (el iframe arranca tapado por la
+  // portada) y iOS ademas lo corta al volver de segundo plano. Nadie
+  // llama a pause(): el evento llega con la pila vacia, asi que la unica
+  // defensa es comprobar y reanudar. Un tick por segundo no se nota.
+  let fallosSeguidos = 0;
+  setInterval(() => {
+    if (!trailerStarted || docked || document.hidden) return;
+    if (introVideo.ended) return;
+    if (!introVideo.paused) { fallosSeguidos = 0; return; }
+    fallosSeguidos += 1;
+    if (!soundUnlocked) introVideo.muted = true;
+    safePlay(introVideo);
+    // Si ni asi arranca, el toque directo sobre el video es el ultimo
+    // recurso: ese gesto ningun navegador lo rechaza.
+    if (fallosSeguidos >= 3 && videoTapButton) videoTapButton.hidden = false;
+  }, 1000);
+
   function vigilarReproduccion() {
     setTimeout(() => {
       if (!videoTapButton) return;
       videoTapButton.hidden = !introVideo.paused;
     }, 1800);
+    setTimeout(() => {
+      if (!videoTapButton) return;
+      videoTapButton.hidden = !introVideo.paused;
+    }, 3600);
   }
 
   if (videoTapButton) {
@@ -1675,14 +1730,13 @@ if (videoIntro && videoFrame && introVideo && heroPortrait) {
 
   window.__asegurarVideo = function asegurarVideo() {
     if (!introVideo.paused) return;
-    const intento = introVideo.play();
-    if (intento && typeof intento.catch === 'function') {
-      intento.catch(() => {
-        introVideo.muted = true;
-        safePlay(introVideo);
-        if (videoSoundButton) videoSoundButton.hidden = false;
-      });
+    // Sin sonido desbloqueado el reintento va SIEMPRE en silencio: pedir
+    // audio fuera de un gesto es rechazo seguro y perderiamos la imagen.
+    if (!soundUnlocked) {
+      introVideo.muted = true;
+      if (videoSoundButton) videoSoundButton.hidden = false;
     }
+    safePlay(introVideo);
   };
 
   document.addEventListener('visibilitychange', () => {
@@ -1746,6 +1800,13 @@ if (videoIntro && videoFrame && introVideo && heroPortrait) {
   // Visita directa (sin portada): intento con sonido y fallback mudo.
   if (window.parent === window) {
     window.__startTrailerSound();
+  } else {
+    // Cargamos DESPUES del toque en la portada (tipico con datos moviles):
+    // el gesto se dio cuando esta funcion aun no existia, asi que aqui se
+    // cobra el pendiente. Sin esto el trailer se quedaba congelado.
+    try {
+      if (window.parent.__premiereStarted) window.__startTrailerSound();
+    } catch (error) { /* portada de otro origen */ }
   }
 } else {
   document.body.classList.remove('video-pending');

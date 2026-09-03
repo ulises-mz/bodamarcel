@@ -115,7 +115,32 @@ function asegurarVideo() {
 }
 
 /* ── El gesto del toque desbloquea el sonido del trailer ── */
+// Bandera que el propio iframe consulta al terminar de cargar: si la
+// premiere ya arranco, se pone en marcha solo. Sin esto, un toque dado
+// antes de que invite.js estuviera listo NO hacia nada --el sintoma que
+// en el telefono se veia como "el video no se reproduce": con datos
+// moviles el iframe casi nunca esta listo a tiempo.
+window.__premiereStarted = false;
+let cobroPendiente = 0;
+
 function startTrailerFromGesture() {
+  window.__premiereStarted = true;
+  if (intentarArranque()) return;
+
+  // Todavia no hay invite.js: se reintenta hasta que aparezca.
+  if (invitationFrame) {
+    invitationFrame.addEventListener('load', intentarArranque, { once: true });
+  }
+  const desde = Date.now();
+  clearInterval(cobroPendiente);
+  cobroPendiente = setInterval(() => {
+    if (intentarArranque() || Date.now() - desde > 15000) {
+      clearInterval(cobroPendiente);
+    }
+  }, 150);
+}
+
+function intentarArranque() {
   try {
     if (
       invitationFrame &&
@@ -123,10 +148,12 @@ function startTrailerFromGesture() {
       typeof invitationFrame.contentWindow.__startTrailerSound === 'function'
     ) {
       invitationFrame.contentWindow.__startTrailerSound();
+      return true;
     }
   } catch (error) {
     /* sin acceso al iframe: el video hara su propio intento */
   }
+  return false;
 }
 
 /* ── La premiere: 3, 2, 1... y la pelicula ── */
